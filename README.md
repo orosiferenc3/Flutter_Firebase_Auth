@@ -2,15 +2,54 @@
 
 In this project I show you how to make a Firebase Authentication. If you want to use this code you have to make your own Firebase project and you should copy your google-services.json to android/app folder.
 
-## Getting Started
+## android/app
+You need to copy the google-services.json to android/app folder
 
-This project is a starting point for a Flutter application.
+## pubspec.yaml
+You need these packages in pubspec.yalm
 
-A few resources to get you started if this is your first Flutter project:
+```dependencies:
+  flutter:
+    sdk: flutter
+  firebase_core: "^0.5.2"
+  firebase_auth: "^0.18.3"
+```
+## android/build.gradle
+In your android/build.gradle file you need these codes:
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+```buildscript {
+    repositories {
+        google() // Google's Maven repository
+    }
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+    dependencies {
+        classpath 'com.google.gms:google-services:4.3.4' // Google Services plugin
+    }
+}
+allprojects {
+    repositories {
+        google() // Google's Maven repository
+    }
+}
+```
+## android/app/build.gradle
+Your android/app/build.gradle file need to contains the following codes:
+
+```apply plugin: 'com.google.gms.google-services' // Google Services plugin
+dependencies {
+    implementation platform('com.google.firebase:firebase-bom:26.1.0')
+    implementation 'com.google.firebase:firebase-auth'
+}
+```
+## main.dart
+In the main.dart file you need these imports:
+
+import 'package:firebase_core/firebase_core.dart';
+void main should look like this:
+
+```void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(MyApp());
+}
+```
