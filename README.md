@@ -197,11 +197,24 @@ You need a check current user method, a sign in method and a tosignup method.
   }
 ```
 
+You have to call the async task in the initState() except the signin because it will cause a warning or error.
+
 ```dart
 @override
 void initState() {
   super.initState();
   this.checkCurrentUser();
+}
+```
+
+You have to dispose the controllers value.
+
+```dart
+@override
+void dispose() {
+  super.dispose();
+  username.dispose();
+  password.dispose();
 }
 ```
 
@@ -240,6 +253,115 @@ GestureDetector(
   },
   child: Text(
     "Sign Up!",
+    style: TextStyle(color: Colors.blue),
+  ),
+),
+```
+
+## signUpPage.dart
+In the signUpPage.dart file you need this import:
+
+```dart
+import 'package:firebase_auth/firebase_auth.dart';
+```
+
+You need three variable:
+
+```dart
+final FirebaseAuth _auth = FirebaseAuth.instance;
+final username = TextEditingController();
+final password = TextEditingController();
+```
+
+You need a check authentication method, a sign up method and a tosignin method.
+
+```dart
+  checkAuthentication() async {
+    _auth.authStateChanges().listen((User user) {
+      if (user != null) {
+        Navigator.pushReplacementNamed(context, "/");
+      }
+    });
+  }
+
+  toSignIn() async {
+    Navigator.pushReplacementNamed(context, "/SignInPage");
+  }
+
+  void signUp() async {
+    try {
+      UserCredential userCredential =
+          await _auth.createUserWithEmailAndPassword(
+              email: username.text, password: password.text);
+      print(userCredential);
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'weak-password') {
+        print('The password provided is too weak.');
+      } else if (e.code == 'email-already-in-use') {
+        print('The account already exists for that email.');
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+```
+
+You have to call the async task in the initState() except the signin because it will cause a warning or error.
+
+```dart
+@override
+void initState() {
+  super.initState();
+  this.checkAuthentication();
+}
+```
+
+You have to dispose the controllers value.
+
+```dart
+@override
+void dispose() {
+  super.dispose();
+  username.dispose();
+  password.dispose();
+}
+```
+
+A textfield should look like this. The important thing is the controller.
+
+```dart
+TextField(
+  controller: username,
+  obscureText: false,
+  decoration: InputDecoration(
+    border: OutlineInputBorder(),
+    hintText: 'E-mail/Username',
+  ),
+),
+```
+
+If you press the button the sign up method will be executed.
+
+```dart
+RaisedButton(
+  onPressed: () {
+    signUp();
+  },
+  child: Center(
+    child: Text('Sign-Up'),
+  ),
+),
+```
+
+I use a gesture detector to navigate the user to the sign in page.
+
+```dart
+GestureDetector(
+  onTap: () {
+    toSignIn();
+  },
+  child: Text(
+    "Sign In!",
     style: TextStyle(color: Colors.blue),
   ),
 ),
