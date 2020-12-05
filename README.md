@@ -2,6 +2,15 @@
 
 In this project I show you how to make a **Firebase Authentication**. **If you want to use this code you have to make your own Firebase project and you should copy your google-services.json to android/app folder.**
 
+## Sign In Page
+![signin](https://user-images.githubusercontent.com/57065082/101261555-94dade00-3738-11eb-89e8-7a01b8404aeb.png)
+
+## Sign Up Page
+![signup](https://user-images.githubusercontent.com/57065082/101261562-a02e0980-3738-11eb-9c2c-2a4823470fb6.png)
+
+## Home Page
+![home](https://user-images.githubusercontent.com/57065082/101261564-a7551780-3738-11eb-9aed-97474e7af0bb.png)
+
 ## android/app
 You need to copy the google-services.json to android/app folder
 
