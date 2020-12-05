@@ -202,8 +202,6 @@ You need a check current user method, a sign in method and a tosignup method.
 void initState() {
   super.initState();
   this.checkCurrentUser();
-  this.signIn();
-  this.toSignUp();
 }
 ```
 
