@@ -1,4 +1,4 @@
-# flutter_auth
+# Flutter Firebase Authentication
 
 In this project I show you how to make a Firebase Authentication. If you want to use this code you have to make your own Firebase project and you should copy your google-services.json to android/app folder.
 
