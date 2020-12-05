@@ -8,7 +8,8 @@ You need to copy the google-services.json to android/app folder
 ## pubspec.yaml
 You need these packages in pubspec.yalm
 
-```dependencies:
+```dart
+dependencies:
   flutter:
     sdk: flutter
   firebase_core: "^0.5.2"
@@ -17,7 +18,8 @@ You need these packages in pubspec.yalm
 ## android/build.gradle
 In your android/build.gradle file you need these codes:
 
-```buildscript {
+```dart
+buildscript {
     repositories {
         google() // Google's Maven repository
     }
@@ -26,6 +28,9 @@ In your android/build.gradle file you need these codes:
         classpath 'com.google.gms:google-services:4.3.4' // Google Services plugin
     }
 }
+```
+
+```dart
 allprojects {
     repositories {
         google() // Google's Maven repository
@@ -35,7 +40,11 @@ allprojects {
 ## android/app/build.gradle
 Your android/app/build.gradle file need to contains the following codes:
 
-```apply plugin: 'com.google.gms.google-services' // Google Services plugin
+```dart
+apply plugin: 'com.google.gms.google-services' // Google Services plugin
+```
+
+```dart
 dependencies {
     implementation platform('com.google.firebase:firebase-bom:26.1.0')
     implementation 'com.google.firebase:firebase-auth'
@@ -47,7 +56,8 @@ In the main.dart file you need these imports:
 import 'package:firebase_core/firebase_core.dart';
 void main should look like this:
 
-```void main() async {
+```dart
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(MyApp());
